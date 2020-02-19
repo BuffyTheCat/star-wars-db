@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 const Main = styled.main`
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 31px;
-    
+    flex-wrap: wrap;
+    width: 1080px;
+    margin: 0 auto;
+    padding: 0;
+    flex-direction: row;
+    justify-content: space-between;
 `;
 
 export { Main };

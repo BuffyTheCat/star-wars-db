@@ -14,6 +14,7 @@ const RandomPlanetStyled = styled.div`
         width: 200px;
         height: 200px;
         margin-right: 46px;
+        object-fit: contain;
     }
 
     div {

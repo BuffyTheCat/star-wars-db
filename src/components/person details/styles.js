@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const PersonDetailStyled = styled.div`
     display: flex;
     justify-content: center;
-    width: 55%;
+    width: 75%;
+    margin-left: auto;
     padding: 60px;
     margin-bottom: 36px;
     border-radius: 12px;
@@ -12,7 +13,8 @@ const PersonDetailStyled = styled.div`
 
     img {
         width: 200px;
-        height: auto;
+        height: 275px;
+        object-fit: cover;
         margin-right: 46px;
     }
 

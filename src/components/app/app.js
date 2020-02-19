@@ -27,7 +27,10 @@ const GlobalStyle = createGlobalStyle`
 export default class App extends Component {
 
     state = {
-        selectedPerson: 5
+        selectedPerson: 5,
+        selectedPlanet: 5,
+        selectedStarship: 5,
+        directory: 'people'
     }
 
     onPersomSelected = (id) => {
@@ -36,17 +39,33 @@ export default class App extends Component {
         })
     }
 
+    onPlanetSelected = (id) => {
+        this.setState({
+            selectedPerson: id
+        })
+    }
+
+    onStarshipSelected = (id) => {
+        this.setState({
+            selectedPerson: id
+        })
+    }
+
+    onDirectoryChange = (directory) => {
+        this.setState({directory});
+    }
+
     render() {
         return (
             <Fragment>
                 <GlobalStyle />
                 <Main>
-                    <Header />
+                    <Header onDirectoryChange={this.onDirectoryChange}/>
                     <RandomPlanet />
                     <ItemList onItemSelected={this.onPersomSelected} />
                     <PersonDetail personId={this.state.selectedPerson}/>
-                    <PlanetDetail />
-                    <StarshipDetail />
+                    <PlanetDetail planetId={this.state.selectedPlanet}/>
+                    <StarshipDetail starshipId={this.state.selectedStarship}/>
                 </Main>
             </Fragment>
         );

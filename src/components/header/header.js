@@ -9,9 +9,9 @@ export default class Header extends Component {
             <HeaderStyled>
                 <h1>Star-wars-db</h1>
                 <nav>
-                    <a onClick={() => onDirectoryChange('planets')} href="#">planets</a>
-                    <a onClick={() => onDirectoryChange('starships')} href="#">starships</a>
-                    <a onClick={() => onDirectoryChange('people')} href="#">people</a>
+                    <a onClick={() => onDirectoryChange('Planets')} href="#">planets</a>
+                    <a onClick={() => onDirectoryChange('Starships')} href="#">starships</a>
+                    <a onClick={() => onDirectoryChange('People')} href="#">people</a>
                 </nav>
             </HeaderStyled>
         );

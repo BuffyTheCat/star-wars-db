@@ -4,9 +4,8 @@ import { createGlobalStyle } from 'styled-components'
 import Header from '../header/header';
 import RandomPlanet from '../random-planet/random-planet';
 import ItemList from '../item-list/item-list';
-import PersonDetail from '../person details/person-details';
-import StarshipDetail from '../starship-details/starship-details';
-import PlanetDetail from '../planet-details/planet-details';
+import PersonDetail from '../person-details/person-details';
+import SwapiService from '../../services/swapi-service';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -25,29 +24,23 @@ const GlobalStyle = createGlobalStyle`
 
 
 export default class App extends Component {
+    swapiService = new SwapiService();
 
     state = {
-        selectedPerson: 5,
-        selectedPlanet: 5,
-        selectedStarship: 5,
-        directory: 'people'
+        selectedItem: null,
+        directory: 'People',
+        hasError: false
     }
 
-    onPersomSelected = (id) => {
+    conponentDidCatch() {
         this.setState({
-            selectedPerson: id
+            hasError: true
         })
     }
 
-    onPlanetSelected = (id) => {
+    itemSelected = (id) => {
         this.setState({
-            selectedPerson: id
-        })
-    }
-
-    onStarshipSelected = (id) => {
-        this.setState({
-            selectedPerson: id
+            selectedItem: id
         })
     }
 
@@ -56,16 +49,21 @@ export default class App extends Component {
     }
 
     render() {
-        return (
+
+        if (this.state.hasError) {
+            return(
+                <p>Woops, looks like somethink wrong</p>
+            );
+        }
+
+        return(
             <Fragment>
                 <GlobalStyle />
                 <Main>
                     <Header onDirectoryChange={this.onDirectoryChange}/>
                     <RandomPlanet />
-                    <ItemList onItemSelected={this.onPersomSelected} />
-                    <PersonDetail personId={this.state.selectedPerson}/>
-                    <PlanetDetail planetId={this.state.selectedPlanet}/>
-                    <StarshipDetail starshipId={this.state.selectedStarship}/>
+                    <ItemList getData={this.swapiService['getAll'+this.state.directory]} itemSelected={this.itemSelected} />
+                    <PersonDetail itemId={this.state.selectedItem} directory={this.state.directory}/>
                 </Main>
             </Fragment>
         );

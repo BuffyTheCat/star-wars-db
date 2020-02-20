@@ -59,7 +59,7 @@ export default class StarshipDetail extends Component {
         } else {
             return(
                 <StarshipDetailStyled>
-                    <img alt="starship image" src={`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`} />
+                    <img alt="starshipImage" src={`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`} />
                     <div>
                         <p>{name}</p>
                         <dl>

@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import { ItemListStyled } from './styles';
-import SwapiService from '../../services/swapi-service';
 import Loader from '../loader/loader';
 
 export default class ItemList extends Component {
-    swapiService = new SwapiService();
 
     state = {
-        peopleList: null
+        itemList: null
     }
 
     componentDidMount() {
-        this.swapiService.getAllPeople().then((peopleList) => {
-            this.setState({peopleList})
+        const { getData } = this.props;
+        getData().then((itemList) => {
+            this.setState({itemList})
         });
+    }
+
+
+    componentDidUpdate(prevProps) {
+        const { getData } = this.props;
+
+        if (this.props.getData !== prevProps.getData) {
+            getData().then((itemList) => {
+                this.setState({itemList})
+            });
+        }
     }
 
     renderItems(arr) {
@@ -21,7 +31,7 @@ export default class ItemList extends Component {
             return(
                 <li 
                     key={id}
-                    onClick={() => this.props.onItemSelected(id)}
+                    onClick={() => this.props.itemSelected(id)}
                 >
                     {name}
                 </li>
@@ -31,9 +41,9 @@ export default class ItemList extends Component {
 
     render() {
 
-        const {peopleList} = this.state;
+        const {itemList} = this.state;
 
-        if (!peopleList) {
+        if (!itemList) {
             return(
                 <ItemListStyled>
                     <Loader />
@@ -43,7 +53,7 @@ export default class ItemList extends Component {
             return(
                 <ItemListStyled>
                     <ul>
-                        {this.renderItems(peopleList)}
+                        {this.renderItems(itemList)}
                     </ul>
                 </ItemListStyled>
             );

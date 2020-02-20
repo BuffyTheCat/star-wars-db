@@ -8,31 +8,40 @@ export default class PersonDetail extends Component {
     swapiService = new SwapiService();
 
     state = {
-        person: {},
-        loading: true
+        item: {},
+        loading: true,
+        directory: null
     };
+
+
+    constructor(props) {
+        super(props);
+        this.state = {directory: props.directory}
+    }
+    
 
     componentDidMount() {
         this.updatePerson();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.personId !== prevProps.personId) {
+        if (this.props.itemId !== prevProps.itemId) {
             this.updatePerson();
         }
     }
 
-    onPersonLoaded = (person) => {
+    onItemLoaded = (item) => {        
         this.setState({
-            person,
+            item,
             loading: false
         })
     }
 
     updatePerson = () => {
-        const { personId } = this.props;
-
-        if (!personId) {
+        const { itemId } = this.props;
+        console.log(this.state.directory);
+        
+        if (!itemId) {
             return
         }
 
@@ -41,12 +50,15 @@ export default class PersonDetail extends Component {
         })
         
         this.swapiService
-            .getPerson(personId)
-            .then(this.onPersonLoaded);
+            ['get'+this.state.directory](itemId)
+            .then(this.onItemLoaded);
+            
     }
-
+    
+    
     render() {
-        const { person: {id, name, height, gender, mass}, loading } = this.state;
+        const { item: {id, name, height, gender, mass}, loading, directory } = this.state;
+        // 
 
         if (loading) {
             return (
@@ -57,7 +69,7 @@ export default class PersonDetail extends Component {
         } else {
             return(
                 <PersonDetailStyled>
-                    <img alt="person image" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+                    <img alt="personImage" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
                     <div>
                         <p>{name}</p>
                         <dl>

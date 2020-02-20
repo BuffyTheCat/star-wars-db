@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const RandomPlanetStyled = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
+    height: 350px;
     padding: 60px;
     margin-bottom: 36px;
     border-radius: 12px;

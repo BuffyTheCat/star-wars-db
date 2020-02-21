@@ -21,6 +21,9 @@ export default class PersonDetail extends Component {
         if (this.props.itemId !== prevProps.itemId) {
             this.updatePerson();
         }
+        if (this.props.directory !== prevProps.directory) {
+            this.updatePerson();
+        }
     }
 
     onItemLoaded = (item) => {        
@@ -51,12 +54,12 @@ export default class PersonDetail extends Component {
     renderItems(item) {
         console.log(item);
         
-        // return for (var key in item)(
-        //     <dl>
-        //         <dt>{}</dt>
-        //         <dd>{item.key}</dd>
-        //     </dl>
-        // );
+        return Object.entries(item).map(([field,value]) => (
+            <dl>
+                <dt>{field}</dt>
+                <dd>{value}</dd>
+            </dl>
+        ));
     }
     
     

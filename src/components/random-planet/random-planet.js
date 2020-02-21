@@ -41,7 +41,7 @@ export default class RandomPlanet extends Component {
         })
 
         this.swapiService
-            .getPlanet(id)
+            .getPlanets(id)
             .then(this.onPlanetLoaded)
             .catch(this.onError);
     }

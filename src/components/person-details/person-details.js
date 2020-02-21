@@ -9,15 +9,8 @@ export default class PersonDetail extends Component {
 
     state = {
         item: {},
-        loading: true,
-        directory: null
+        loading: true
     };
-
-
-    constructor(props) {
-        super(props);
-        this.state = {directory: props.directory}
-    }
     
 
     componentDidMount() {
@@ -39,7 +32,7 @@ export default class PersonDetail extends Component {
 
     updatePerson = () => {
         const { itemId } = this.props;
-        console.log(this.state.directory);
+        
         
         if (!itemId) {
             return
@@ -50,14 +43,25 @@ export default class PersonDetail extends Component {
         })
         
         this.swapiService
-            ['get'+this.state.directory](itemId)
+            ['get'+this.props.directory](itemId)
             .then(this.onItemLoaded);
             
+    }
+
+    renderItems(item) {
+        console.log(item);
+        
+        // return for (var key in item)(
+        //     <dl>
+        //         <dt>{}</dt>
+        //         <dd>{item.key}</dd>
+        //     </dl>
+        // );
     }
     
     
     render() {
-        const { item: {id, name, height, gender, mass}, loading, directory } = this.state;
+        const { item, loading } = this.state;
         // 
 
         if (loading) {
@@ -69,21 +73,10 @@ export default class PersonDetail extends Component {
         } else {
             return(
                 <PersonDetailStyled>
-                    <img alt="personImage" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+                    <img alt="personImage" src={`https://starwars-visualguide.com/assets/img/${this.props.directory === 'People' ? 'characters' : this.props.directory.toLowerCase()}/${item.id}.jpg`} />
                     <div>
-                        <p>{name}</p>
-                        <dl>
-                            <dt>height</dt>
-                            <dd>{height}</dd>
-                        </dl>
-                        <dl>
-                            <dt>gender</dt>
-                            <dd>{gender}</dd>
-                        </dl>
-                        <dl>
-                            <dt>mass</dt>
-                            <dd>{mass}</dd>
-                        </dl>
+                        <p>{item.name}</p>
+                        {this.renderItems(item)}
                     </div>
                 </PersonDetailStyled>
             );

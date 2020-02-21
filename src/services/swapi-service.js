@@ -26,7 +26,7 @@ export default class SwapiService {
         return res.results.map(this._transformPlanet);
     }
 
-    getPlanet = async (id) => {
+    getPlanets = async (id) => {
         const planet = await this.getSource(`/planets/${id}`);
         return this._transformPlanet(planet);
     }
@@ -36,7 +36,7 @@ export default class SwapiService {
         return res.results.map(this._transformStarship);
     }
 
-    getStarship = async (id) => {
+    getStarships = async (id) => {
         const starship = await this.getSource(`/starships/${id}`);
         return this._transformStarship(starship);
     }

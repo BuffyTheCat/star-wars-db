@@ -13,7 +13,7 @@ const RandomPlanetStyled = styled.div`
     background-color: black;
 
     img {
-        width: 200px;
+        width: auto;
         height: 200px;
         margin-right: 46px;
         object-fit: contain;

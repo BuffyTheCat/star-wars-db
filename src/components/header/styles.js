@@ -13,6 +13,8 @@ const HeaderStyled = styled.header`
             color: white;
             text-decoration: none;
 
+            color: ${ props => props.asd ? '#d68383' : '#ffffff'};
+
             &:not(:last-of-type) {
                 margin-right: 15px;
             }

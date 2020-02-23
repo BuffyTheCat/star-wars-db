@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ItemListStyled = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 20%;
     padding: 60px 20px;
     margin-bottom: 36px;
@@ -11,6 +11,9 @@ const ItemListStyled = styled.div`
     background-color: black;
 
     ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         padding: 0;
         margin: 0;
         list-style-type: none;

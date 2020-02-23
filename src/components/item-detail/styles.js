@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const StarshipDetailStyled = styled.div`
+const ItemDetailStyled = styled.div`
     display: flex;
     justify-content: center;
-    width: 75%;
+    width: 78%;
     margin-left: auto;
     padding: 60px;
     margin-bottom: 36px;
@@ -12,10 +12,11 @@ const StarshipDetailStyled = styled.div`
     background-color: black;
 
     img {
-        width: 200px;
-        height: 200px;
-        margin-right: 46px;
+        width: auto;
+        max-width: 300px;
+        height: 275px;
         object-fit: contain;
+        margin-right: 46px;
     }
 
     div {
@@ -50,4 +51,4 @@ const StarshipDetailStyled = styled.div`
     }
 `;
 
-export { StarshipDetailStyled };
+export { ItemDetailStyled };

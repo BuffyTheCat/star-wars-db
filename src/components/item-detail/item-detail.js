@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PersonDetailStyled } from './styles';
+import { ItemDetailStyled } from './styles';
 import SwapiService from '../../services/swapi-service'
 import Loader from '../loader/loader';
 
@@ -9,20 +9,30 @@ export default class PersonDetail extends Component {
 
     state = {
         item: {},
-        loading: true
+        loading: true,
+        isEmpty: false,
+        hasError: false
     };
     
 
     componentDidMount() {
-        this.updatePerson();
+        this.updateItem();
+    }
+
+    conponentDidCatch() {
+        this.setState({
+            hasError: true
+        })
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.itemId !== prevProps.itemId) {
-            this.updatePerson();
+            this.updateItem();
         }
         if (this.props.directory !== prevProps.directory) {
-            this.updatePerson();
+            this.setState({
+                isEmpty: true
+            });
         }
     }
 
@@ -33,16 +43,19 @@ export default class PersonDetail extends Component {
         })
     }
 
-    updatePerson = () => {
+    updateItem = () => {
         const { itemId } = this.props;
         
-        
         if (!itemId) {
+            this.setState({
+                isEmpty: true
+            });
             return
         }
 
         this.setState({
-            loading: true
+            loading: true,
+            isEmpty: false
         })
         
         this.swapiService
@@ -51,11 +64,9 @@ export default class PersonDetail extends Component {
             
     }
 
-    renderItems(item) {
-        console.log(item);
-        
+    renderItems(item) {        
         return Object.entries(item).map(([field,value]) => (
-            <dl>
+            <dl key={value}>
                 <dt>{field}</dt>
                 <dd>{value}</dd>
             </dl>
@@ -65,23 +76,38 @@ export default class PersonDetail extends Component {
     
     render() {
         const { item, loading } = this.state;
-        // 
+
+        if (this.state.hasError) {
+            return(
+                <ItemDetailStyled>
+                    <p>Woops, looks like somethink wrong</p>
+                </ItemDetailStyled>
+            );
+        } 
+
+        if (this.state.isEmpty) {
+            return(
+                <ItemDetailStyled>
+                    <p>Please select item</p>
+                </ItemDetailStyled>
+            );
+        } 
 
         if (loading) {
             return (
-                <PersonDetailStyled>
+                <ItemDetailStyled>
                     <Loader />
-                </PersonDetailStyled>
+                </ItemDetailStyled>
             );
         } else {
             return(
-                <PersonDetailStyled>
-                    <img alt="personImage" src={`https://starwars-visualguide.com/assets/img/${this.props.directory === 'People' ? 'characters' : this.props.directory.toLowerCase()}/${item.id}.jpg`} />
+                <ItemDetailStyled>
+                    <img alt="itemImage" src={`https://starwars-visualguide.com/assets/img/${this.props.directory === 'People' ? 'characters' : this.props.directory.toLowerCase()}/${item.id}.jpg`} />
                     <div>
                         <p>{item.name}</p>
                         {this.renderItems(item)}
                     </div>
-                </PersonDetailStyled>
+                </ItemDetailStyled>
             );
         }
 

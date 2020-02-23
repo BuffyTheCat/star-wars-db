@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 import Header from '../header/header';
 import RandomPlanet from '../random-planet/random-planet';
 import ItemList from '../item-list/item-list';
-import PersonDetail from '../person-details/person-details';
+import ItemDetail from '../item-detail/item-detail';
 import SwapiService from '../../services/swapi-service';
 
 const GlobalStyle = createGlobalStyle`
@@ -60,10 +60,10 @@ export default class App extends Component {
             <Fragment>
                 <GlobalStyle />
                 <Main>
-                    <Header onDirectoryChange={this.onDirectoryChange}/>
+                    <Header directory={this.state.directory} onDirectoryChange={this.onDirectoryChange}/>
                     <RandomPlanet />
                     <ItemList getData={this.swapiService['getAll'+this.state.directory]} itemSelected={this.itemSelected} />
-                    <PersonDetail itemId={this.state.selectedItem} directory={this.state.directory}/>
+                    <ItemDetail itemId={this.state.selectedItem} directory={this.state.directory}/>
                 </Main>
             </Fragment>
         );

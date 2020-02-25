@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HeaderStyled } from './styles';
+import { HeaderStyled, LinkStyled } from './styles';
 
 export default class Header extends Component {
     links = [
@@ -15,7 +15,7 @@ export default class Header extends Component {
         const links = this.links.map((item) => {
             console.log(directory === item.name);
             return (
-                <a key={item.name} asd={false} onClick={() => onDirectoryChange(`${item.name}`)} href="#">{item.label}</a>
+                <LinkStyled key={item.name} active={directory === item.name ? true : false} onClick={() => onDirectoryChange(`${item.name}`)} href="#">{item.label}</LinkStyled>
             );
         });
 
